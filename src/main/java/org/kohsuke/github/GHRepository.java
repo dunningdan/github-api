@@ -28,6 +28,8 @@ import com.infradna.tool.bridge_method_injector.WithBridgeMethods;
 import edu.umd.cs.findbugs.annotations.CheckForNull;
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.apache.commons.lang3.StringUtils;
 import org.kohsuke.github.function.InputStreamFunction;
 import org.kohsuke.github.internal.EnumUtils;
@@ -2554,7 +2556,7 @@ public class GHRepository extends GHObject {
                     List<URL> r = new ArrayList<>();
                     for (GHHook h : getHooks()) {
                         if (h.getName().equals("web")) {
-                            r.add(new URL(h.getConfig().get("url")));
+                            r.add(Urls.create(h.getConfig().get("url"), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS));
                         }
                     }
                     return r;

@@ -2,6 +2,8 @@ package org.kohsuke.github;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kohsuke.github.connector.GitHubConnectorRequest;
@@ -110,7 +112,7 @@ public class GitHubRequest implements GitHubConnectorRequest {
                 // backward compatibility
                 apiUrl = GitHubClient.GITHUB_URL;
             }
-            return new URL(apiUrl + tailApiUrl);
+            return Urls.create(apiUrl + tailApiUrl, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         } catch (Exception e) {
             // The data going into constructing this URL should be controlled by the GitHub API framework,
             // so a malformed URL here is a framework runtime error.

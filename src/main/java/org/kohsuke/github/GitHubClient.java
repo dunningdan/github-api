@@ -2,6 +2,8 @@ package org.kohsuke.github;
 
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.apache.commons.io.IOUtils;
 import org.kohsuke.github.authorization.AuthorizationProvider;
 import org.kohsuke.github.authorization.UserAuthorizationProvider;
@@ -773,7 +775,7 @@ class GitHubClient {
                 throw new IOException(apiUrl + " doesn't look like GitHub API URL");
 
             // make sure that the URL is legitimate
-            new URL(rate_limit_url);
+            Urls.create(rate_limit_url, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         }
     }
 
@@ -823,7 +825,7 @@ class GitHubClient {
      */
     static URL parseURL(String s) {
         try {
-            return s == null ? null : new URL(s);
+            return s == null ? null : Urls.create(s, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         } catch (MalformedURLException e) {
             throw new IllegalStateException("Invalid URL: " + s);
         }
