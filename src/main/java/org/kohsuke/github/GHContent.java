@@ -186,7 +186,7 @@ public class GHContent extends GitHubInteractiveObject implements Refreshable {
      */
     public InputStream read() throws IOException {
         refresh(content);
-        if (encoding.equals("base64")) {
+        if ("base64".equals(encoding)) {
             try {
                 Base64.Decoder decoder = Base64.getMimeDecoder();
                 return new ByteArrayInputStream(decoder.decode(content.getBytes(StandardCharsets.US_ASCII)));

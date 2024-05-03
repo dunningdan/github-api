@@ -169,9 +169,9 @@ public final class ObsoleteUrlFactory implements URLStreamHandlerFactory, Clonea
         String protocol = url.getProtocol();
         OkHttpClient copy = client.newBuilder().proxy(proxy).build();
 
-        if (protocol.equals("http"))
+        if ("http".equals(protocol))
             return new OkHttpURLConnection(url, copy);
-        if (protocol.equals("https"))
+        if ("https".equals(protocol))
             return new OkHttpsURLConnection(url, copy);
         throw new IllegalArgumentException("Unexpected protocol: " + protocol);
     }
@@ -194,7 +194,7 @@ public final class ObsoleteUrlFactory implements URLStreamHandlerFactory, Clonea
      */
     @Override
     public URLStreamHandler createURLStreamHandler(final String protocol) {
-        if (!protocol.equals("http") && !protocol.equals("https"))
+        if (!"http".equals(protocol) && !"https".equals(protocol))
             return null;
 
         return new URLStreamHandler() {
@@ -210,9 +210,9 @@ public final class ObsoleteUrlFactory implements URLStreamHandlerFactory, Clonea
 
             @Override
             protected int getDefaultPort() {
-                if (protocol.equals("http"))
+                if ("http".equals(protocol))
                     return 80;
-                if (protocol.equals("https"))
+                if ("https".equals(protocol))
                     return 443;
                 throw new AssertionError();
             }
@@ -224,7 +224,7 @@ public final class ObsoleteUrlFactory implements URLStreamHandlerFactory, Clonea
     }
 
     static boolean permitsRequestBody(String method) {
-        return !(method.equals("GET") || method.equals("HEAD"));
+        return !("GET".equals(method) || "HEAD".equals(method));
     }
 
     /** Returns true if the response must have a (possibly 0-length) body. See RFC 7231. */
@@ -571,7 +571,7 @@ public final class ObsoleteUrlFactory implements URLStreamHandlerFactory, Clonea
 
             connected = true;
             if (doOutput) {
-                if (method.equals("GET")) {
+                if ("GET".equals(method)) {
                     method = "POST";
                 } else if (!permitsRequestBody(method)) {
                     throw new ProtocolException(method + " does not support writing");

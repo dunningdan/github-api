@@ -2553,7 +2553,7 @@ public class GHRepository extends GHObject {
                 try {
                     List<URL> r = new ArrayList<>();
                     for (GHHook h : getHooks()) {
-                        if (h.getName().equals("web")) {
+                        if ("web".equals(h.getName())) {
                             r.add(new URL(h.getConfig().get("url")));
                         }
                     }
@@ -2588,7 +2588,7 @@ public class GHRepository extends GHObject {
                 try {
                     String _url = ((URL) url).toExternalForm();
                     for (GHHook h : getHooks()) {
-                        if (h.getName().equals("web") && h.getConfig().get("url").equals(_url)) {
+                        if ("web".equals(h.getName()) && h.getConfig().get("url").equals(_url)) {
                             h.delete();
                             return true;
                         }

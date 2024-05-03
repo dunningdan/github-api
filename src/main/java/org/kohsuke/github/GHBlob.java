@@ -70,7 +70,7 @@ public class GHBlob {
      * @return the actual bytes of the blob.
      */
     public InputStream read() {
-        if (encoding.equals("base64")) {
+        if ("base64".equals(encoding)) {
             try {
                 Base64.Decoder decoder = Base64.getMimeDecoder();
                 return new ByteArrayInputStream(decoder.decode(content));
