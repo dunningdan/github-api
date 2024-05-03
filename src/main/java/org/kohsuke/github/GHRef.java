@@ -148,7 +148,7 @@ public class GHRef extends GitHubInteractiveObject {
 
         String url = repository.getApiTailUrl(String.format("git/refs/%s", refType));
         // if no types, do not end with slash just to be safe.
-        if (refType.equals("")) {
+        if ("".equals(refType)) {
             url = url.substring(0, url.length() - 1);
         }
         return repository.root().createRequest().withUrlPath(url).toIterable(GHRef[].class, item -> repository.root());

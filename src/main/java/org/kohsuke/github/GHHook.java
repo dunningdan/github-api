@@ -49,7 +49,7 @@ public abstract class GHHook extends GHObject {
     public EnumSet<GHEvent> getEvents() {
         EnumSet<GHEvent> s = EnumSet.noneOf(GHEvent.class);
         for (String e : events) {
-            s.add(e.equals("*") ? GHEvent.ALL : EnumUtils.getEnumOrDefault(GHEvent.class, e, GHEvent.UNKNOWN));
+            s.add("*".equals(e) ? GHEvent.ALL : EnumUtils.getEnumOrDefault(GHEvent.class, e, GHEvent.UNKNOWN));
         }
         return s;
     }

@@ -144,7 +144,7 @@ public abstract class GitHubConnectorResponse implements Closeable {
         String encoding = header("Content-Encoding");
         if (encoding == null || stream == null)
             return stream;
-        if (encoding.equals("gzip"))
+        if ("gzip".equals(encoding))
             return new GZIPInputStream(stream);
 
         throw new UnsupportedOperationException("Unexpected Content-Encoding: " + encoding);

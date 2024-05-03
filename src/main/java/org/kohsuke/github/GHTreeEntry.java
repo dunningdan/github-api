@@ -82,7 +82,7 @@ public class GHTreeEntry {
      *             the io exception
      */
     public GHBlob asBlob() throws IOException {
-        if (type.equals("blob"))
+        if ("blob".equals(type))
             return tree.repo.getBlob(sha);
         else
             return null;
@@ -96,7 +96,7 @@ public class GHTreeEntry {
      *             the io exception
      */
     public InputStream readAsBlob() throws IOException {
-        if (type.equals("blob"))
+        if ("blob".equals(type))
             return tree.repo.readBlob(sha);
         else
             return null;
@@ -110,7 +110,7 @@ public class GHTreeEntry {
      *             the io exception
      */
     public GHTree asTree() throws IOException {
-        if (type.equals("tree"))
+        if ("tree".equals(type))
             return tree.repo.getTree(sha);
         else
             return null;

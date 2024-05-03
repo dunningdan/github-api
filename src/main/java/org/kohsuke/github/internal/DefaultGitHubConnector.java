@@ -41,15 +41,15 @@ public final class DefaultGitHubConnector {
 
     static GitHubConnector create(String defaultConnectorProperty) {
 
-        if (defaultConnectorProperty.equalsIgnoreCase("okhttp")) {
+        if ("okhttp".equalsIgnoreCase(defaultConnectorProperty)) {
             return new OkHttpGitHubConnector(new OkHttpClient.Builder().build());
-        } else if (defaultConnectorProperty.equalsIgnoreCase("okhttpconnector")) {
+        } else if ("okhttpconnector".equalsIgnoreCase(defaultConnectorProperty)) {
             return new GitHubConnectorHttpConnectorAdapter(new OkHttpConnector(new OkHttpClient.Builder().build()));
-        } else if (defaultConnectorProperty.equalsIgnoreCase("urlconnection")) {
+        } else if ("urlconnection".equalsIgnoreCase(defaultConnectorProperty)) {
             return new GitHubConnectorHttpConnectorAdapter(HttpConnector.DEFAULT);
-        } else if (defaultConnectorProperty.equalsIgnoreCase("httpclient")) {
+        } else if ("httpclient".equalsIgnoreCase(defaultConnectorProperty)) {
             return new HttpClientGitHubConnector();
-        } else if (defaultConnectorProperty.equalsIgnoreCase("default")) {
+        } else if ("default".equalsIgnoreCase(defaultConnectorProperty)) {
             try {
                 return new HttpClientGitHubConnector();
             } catch (UnsupportedOperationException | LinkageError e) {
